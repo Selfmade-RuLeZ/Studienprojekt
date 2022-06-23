@@ -1,6 +1,7 @@
 package de.hsesslingen.StudienprojektKneisel.Entities;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,15 +19,18 @@ public class Manufacturer {
     @Column(name = "origin", nullable = false)
     private String origin;
 
-    @OneToMany(mappedBy = "manufacturer", orphanRemoval = true)
-    private Set<RepairContract> repairContracts = new LinkedHashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "repair_authorization",
+            joinColumns = @JoinColumn(name = "manufacturer_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "repair_shop_id", referencedColumnName = "id"))
+    private Set<RepairShop> repairShops = new LinkedHashSet<>();
 
-    public Set<RepairContract> getRepairContracts() {
-        return repairContracts;
+    public Set<RepairShop> getRepairShops() {
+        return repairShops;
     }
 
-    public void setRepairContracts(Set<RepairContract> repairContracts) {
-        this.repairContracts = repairContracts;
+    public void setRepairShops(Set<RepairShop> repairShops) {
+        this.repairShops = repairShops;
     }
 
     public Long getId() {

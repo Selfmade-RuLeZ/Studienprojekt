@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "repair_contract")
-public class RepairContract {
+public class RepairAuthorization {
     @ManyToOne(optional = false)
     @JoinColumn(name = "manufacturer_id", nullable = false)
     private Manufacturer manufacturer;

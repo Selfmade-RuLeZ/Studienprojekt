@@ -1,6 +1,7 @@
 package de.hsesslingen.StudienprojektKneisel.Entities;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import java.util.Set;
 @Table(name = "repair_shop")
 public class RepairShop {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -26,27 +28,26 @@ public class RepairShop {
     @Column(name = "street")
     private String street;
 
-    @ManyToOne
-    @JoinColumn(name = "repair_shop_id")
-    private RepairShop repairShop;
+    @ManyToMany(mappedBy = "repairShops")
+    private Set<Manufacturer> manufacturers = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "repairShop", orphanRemoval = true)
-    private Set<RepairContract> repairContracts = new LinkedHashSet<>();
+    private Set<Repair> repairs = new LinkedHashSet<>();
 
-    public Set<RepairContract> getRepairContracts() {
-        return repairContracts;
+    public Set<Repair> getRepairs() {
+        return repairs;
     }
 
-    public void setRepairContracts(Set<RepairContract> repairContracts) {
-        this.repairContracts = repairContracts;
+    public void setRepairs(Set<Repair> repairs) {
+        this.repairs = repairs;
     }
 
-    public RepairShop getRepairShop() {
-        return repairShop;
+    public Set<Manufacturer> getManufacturers() {
+        return manufacturers;
     }
 
-    public void setRepairShop(RepairShop repairShop) {
-        this.repairShop = repairShop;
+    public void setManufacturers(Set<Manufacturer> manufacturers) {
+        this.manufacturers = manufacturers;
     }
 
     public String getStreet() {
