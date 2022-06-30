@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>de.hs-esslingen</groupId>
 	<artifactId>StudienprojektKneisel</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>StudienprojektKneisel</name>
 	<description>Studienprojekt SS2022 Kneisel</description>
 	<properties>
@@ -72,31 +72,6 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>deploy-docker</id>
-			<properties>
-				<maven.deploy.skip>true</maven.deploy.skip>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.google.cloud.tools</groupId>
-						<artifactId>jib-maven-plugin</artifactId>
-						<configuration>
-							<to>
-								<image>${env.DOCKERHUB_USERNAME}/studienprojekt-hse-pakn</image>
-								<tags>
-									<tag>${project.version}</tag>
-									<tag>latest</tag>
-								</tags>
-							</to>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
 
 
