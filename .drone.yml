@@ -6,6 +6,6 @@ steps:
   - name: build
     image: maven
     commands:
-      - mvn build
+      - mvn clean install
     environment:
       DOCKERHUB_USERNAME: selfmaderulez
