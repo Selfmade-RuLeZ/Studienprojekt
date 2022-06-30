@@ -7,3 +7,5 @@ steps:
     image: maven
     commands:
       - mvn build
+    environment:
+      DOCKERHUB_USERNAME: selfmaderulez
