@@ -3,9 +3,22 @@ type: docker
 name: default
 
 steps:
+  - name: docker login
+      image: plugins/docker
+      settings:
+        username:
+          from_secret: docker_user
+        password:
+          from_secret: docker_pass
   - name: build
     image: maven
     commands:
       - mvn clean package
+  - name: deploy container to DockerHub
+    image: maven
+    commands:
+      - mvn clean install
+      - mvn deploy jib:build -P deploy-docker
     environment:
-      DOCKERHUB_USERNAME: selfmaderulez
+      DOCKERHUB_USERNAME:
+        from_secret: docker_user
