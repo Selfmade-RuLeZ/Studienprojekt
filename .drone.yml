@@ -3,7 +3,7 @@ type: docker
 name: default
 
 steps:
-  - name: docker login
+  - name: docker-login
       image: plugins/docker
       settings:
         username:
@@ -14,7 +14,7 @@ steps:
     image: maven
     commands:
       - mvn clean package
-  - name: deploy container to DockerHub
+  - name: deploy-container-to-DockerHub
     image: maven
     commands:
       - mvn clean install
