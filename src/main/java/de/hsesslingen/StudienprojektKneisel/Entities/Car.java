@@ -1,6 +1,7 @@
 package de.hsesslingen.StudienprojektKneisel.Entities;
 
-import org.hibernate.annotations.ColumnDefault;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.hsesslingen.StudienprojektKneisel.Serializers.ManufactureSerializer;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -68,6 +69,7 @@ public class Car {
         this.modelSeries = modelSeries;
     }
 
+    @JsonSerialize(using = ManufactureSerializer.class)
     public Manufacturer getManufacturer() {
         return manufacturer;
     }
