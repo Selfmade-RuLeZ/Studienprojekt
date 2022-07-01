@@ -3,7 +3,18 @@ type: docker
 name: default
 
 steps:
-  - name: build
+  - name: build frontend
+    image: node
+    commands:
+      - cd frontend
+      - npm run build
+      - npm run export
+  - name: move frontend
+    image: alpine
+    commands:
+      - mkdir /drone/src/src/main/resources/static
+      - mv /drone/src/frontend/out/* /drone/src/src/main/resources/static/
+  - name: build backend
     image: maven
     commands:
       - mvn clean package
