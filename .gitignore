@@ -266,3 +266,6 @@ target/
 .settings
 .springBeans
 .sts4-cache
+
+### output from Next.js to Spring Boot ###
+src/main/resources/static
