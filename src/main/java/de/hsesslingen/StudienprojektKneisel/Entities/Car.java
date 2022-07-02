@@ -2,6 +2,7 @@ package de.hsesslingen.StudienprojektKneisel.Entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.hsesslingen.StudienprojektKneisel.Serializers.ManufactureSerializer;
+import de.hsesslingen.StudienprojektKneisel.Serializers.RepairSetSerializer;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -45,6 +46,7 @@ public class Car {
         this.mileage = mileage;
     }
 
+    @JsonSerialize(using = RepairSetSerializer.class)
     public Set<Repair> getRepairs() {
         return repairs;
     }
