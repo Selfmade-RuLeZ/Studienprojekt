@@ -1,7 +1,10 @@
 package de.hsesslingen.StudienprojektKneisel.Entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.hsesslingen.StudienprojektKneisel.Serializers.ManufacturerSetSerializer;
+import de.hsesslingen.StudienprojektKneisel.Serializers.RepairSetSerializer;
+
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -16,17 +19,17 @@ public class RepairShop {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "street")
+    private String street;
+
+    @Column(name = "house_number", nullable = false)
+    private Integer houseNumber;
+
     @Column(name = "postal_code", nullable = false)
     private Integer postalCode;
 
     @Column(name = "city", nullable = false)
     private String city;
-
-    @Column(name = "house_number", nullable = false)
-    private Integer houseNumber;
-
-    @Column(name = "street")
-    private String street;
 
     @ManyToMany(mappedBy = "repairShops")
     private Set<Manufacturer> manufacturers = new LinkedHashSet<>();
@@ -34,6 +37,7 @@ public class RepairShop {
     @OneToMany(mappedBy = "repairShop", orphanRemoval = true)
     private Set<Repair> repairs = new LinkedHashSet<>();
 
+    @JsonSerialize(using = RepairSetSerializer.class)
     public Set<Repair> getRepairs() {
         return repairs;
     }
@@ -42,6 +46,7 @@ public class RepairShop {
         this.repairs = repairs;
     }
 
+    @JsonSerialize(using = ManufacturerSetSerializer.class)
     public Set<Manufacturer> getManufacturers() {
         return manufacturers;
     }
