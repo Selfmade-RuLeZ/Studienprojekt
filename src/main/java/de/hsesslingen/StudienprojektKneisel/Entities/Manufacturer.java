@@ -1,7 +1,9 @@
 package de.hsesslingen.StudienprojektKneisel.Entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.hsesslingen.StudienprojektKneisel.Serializers.RepairShopSetSerializer;
+
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,6 +27,7 @@ public class Manufacturer {
             inverseJoinColumns = @JoinColumn(name = "repair_shop_id", referencedColumnName = "id"))
     private Set<RepairShop> repairShops = new LinkedHashSet<>();
 
+    @JsonSerialize(using = RepairShopSetSerializer.class)
     public Set<RepairShop> getRepairShops() {
         return repairShops;
     }
