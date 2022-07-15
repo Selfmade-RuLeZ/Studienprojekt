@@ -105,4 +105,12 @@ public class Car {
     public void setVin(String vin) {
         this.vin = vin;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        return ((Car) o).getId().equals(this.id);
+    }
 }

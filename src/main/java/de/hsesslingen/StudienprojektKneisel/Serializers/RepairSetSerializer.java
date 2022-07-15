@@ -29,6 +29,7 @@ public class RepairSetSerializer extends StdSerializer<Set<Repair>> {
             jgen.writeStartObject();
             jgen.writeNumberField("id", repair.getId());
             jgen.writeNumberField("carId", repair.getCar().getId());
+            jgen.writeNumberField("repairShopId", repair.getRepairShop().getId());
             jgen.writeNumberField("cost", repair.getCost());
             jgen.writeStringField("description", repair.getDescription());
             jgen.writeEndObject();
