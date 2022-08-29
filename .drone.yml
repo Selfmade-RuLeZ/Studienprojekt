@@ -6,7 +6,8 @@ steps:
   - name: deploy frontend to DockerHub
     image: plugins/docker
     settings:
-      context: ./frontend
+      context: frontend
+      dockerfile: frontend/Dockerfile
       username:
         from_secret: docker_user
       password:
