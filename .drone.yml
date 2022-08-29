@@ -1,25 +1,29 @@
 kind: pipeline
 type: docker
-name: default
+name: frontend
 
 steps:
-  - name: build frontend
-    image: node
-    commands:
-      - cd frontend
-      - npm install
-      - npm run build
-      - npm run export
-  - name: move frontend
-    image: alpine
-    commands:
-      - mkdir /drone/src/src/main/resources/static
-      - mv /drone/src/frontend/out/* /drone/src/src/main/resources/static/
+  - name: deploy frontend to DockerHub
+    image: plugins/docker
+    settings:
+      context: ./frontend
+      username:
+        from_secret: docker_user
+      password:
+        from_secret: docker_pass
+      repo: selfmaderulez/studienprojekt-hse-pakn-frontend
+      tags: [latest, 1.0.0]
+
+---
+kind: pipeline
+type: docker
+name: backend
+
   - name: build backend
     image: maven
     commands:
       - mvn clean package
-  - name: deploy to DockerHub
+  - name: deploy backend to DockerHub
     image: plugins/docker
     settings:
       username:
