@@ -44,8 +44,12 @@ steps:
 - name: deploy
   image: docker/compose
   environment:
-    SSH_KEY: 
-      from_secret: ssh_key
+    DRONE_SECRET_DB_USER: 
+      from_secret: db_user
+    DRONE_SECRET_DB_PASS:
+      from_secret: db_pass
+    DRONE_SECRET_DB_HOST:
+      from_secret: db_host
 
   when:
     event:
