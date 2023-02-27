@@ -42,7 +42,7 @@ name: deployment
 
 steps:
 - name: deploy
-  image: docker/compose
+  image: docker
   environment:
     DRONE_SECRET_DB_USER: 
       from_secret: db_user
@@ -58,7 +58,7 @@ steps:
     - production
     
   commands:
-    - docker-compose up -d
+    - docker compose up -d
     
 depends_on:
 - frontend
