@@ -52,10 +52,10 @@ steps:
     - promote
     target:
     - production
-  
-  depends_on:
-  - frontend
-  - backend
     
   commands:
     - docker-compose up -d
+    
+depends_on:
+- frontend
+- backend
