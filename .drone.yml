@@ -50,6 +50,9 @@ steps:
       from_secret: db_pass
     DRONE_SECRET_DB_HOST:
       from_secret: db_host
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
 
   when:
     event:
@@ -63,3 +66,8 @@ steps:
 depends_on:
 - frontend
 - backend
+
+volumes:
+  - name: docker-socket
+    host: 
+      path: /var/run/docker.sock
