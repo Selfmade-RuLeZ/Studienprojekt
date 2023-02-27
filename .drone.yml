@@ -34,3 +34,28 @@ steps:
         from_secret: docker_pass
       repo: selfmaderulez/studienprojekt-hse-pakn
       tags: [latest, 1.0.0]
+      
+---
+kind: pipeline
+type: docker
+name: deployment
+
+steps:
+- name: deploy
+  image: docker/compose
+  environment:
+    SSH_KEY: 
+      from_secret: ssh_key
+
+  when:
+    event:
+    - promote
+    target:
+    - production
+  
+  depends_on:
+  - frontend
+  - backend
+    
+  commands:
+    - docker-compose up -d
