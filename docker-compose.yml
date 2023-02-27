@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+    backend:
+        image: selfmaderulez/studienprojekt-hse-pakn
+        environment:
+            MARIADB_USERNAME: ${DRONE_SECRET_DB_USER}
+            MARIADB_PASSWORD: ${DRONE_SECRET_DB_PASS}
+            MARIADB_HOST: ${DRONE_SECRET_DB_HOST}
+            MARIADB_PORT: 3306
+            MARIADB_DATABASE: studienprojekt
+        ports:
+            - "8080:8080"
+        networks:
+            - network1
+
+    frontend:
+        image: selfmaderulez/studienprojekt-hse-pakn-frontend
+        ports:
+            - "3001:3000"
+        networks:
+            - network1
+
+networks: 
+    network1:
+        name: studienprojekt
+        external: true
